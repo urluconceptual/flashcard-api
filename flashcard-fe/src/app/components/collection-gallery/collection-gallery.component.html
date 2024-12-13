@@ -1,0 +1,7 @@
+<mat-grid-list cols="3" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let collection of collections">
+      <p-button [label]="collection.name"
+                [routerLink]="['/collection', collection.id]"
+      ></p-button>
+    </mat-grid-tile>
+</mat-grid-list>

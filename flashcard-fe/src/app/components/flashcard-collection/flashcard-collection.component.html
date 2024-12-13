@@ -1,0 +1,8 @@
+<h1>{{collection.name}}</h1>
+<p-carousel [value]="collection.flashcardList" [numVisible]="1" [numScroll]="1" [circular]="true">
+  <ng-template let-flashcard #item>
+    <div class="container">
+      <app-flashcard [flashcard]="flashcard"></app-flashcard>
+    </div>
+  </ng-template>
+</p-carousel>

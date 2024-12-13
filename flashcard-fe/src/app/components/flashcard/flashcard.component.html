@@ -1,0 +1,7 @@
+<div class="card" (click)="onClick($event)">
+  <div>
+    {{ flashcard.term }}
+  </div>
+  <p-divider *ngIf="expanded" />
+  <div *ngIf="expanded" class="definition">{{ flashcard.definition }}</div>
+</div>
