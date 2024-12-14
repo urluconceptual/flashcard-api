@@ -1,7 +1,9 @@
-<p-menubar>
-  <ng-template #end>
-    <h6>
-      FlashCardZ ⚡
-    </h6>
-  </ng-template>
-</p-menubar>
+<mat-toolbar>
+  <span>FlashCardZ ⚡</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="menu.toggle($event)">
+    <mat-icon class="top-bar-icon">add</mat-icon>
+  </button>
+  <p-menu #menu [model]="menuItems" [popup]="true" />
+
+</mat-toolbar>

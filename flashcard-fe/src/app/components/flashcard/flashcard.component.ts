@@ -1,13 +1,12 @@
 import {Component, Input} from '@angular/core';
-import { Card } from 'primeng/card';
-import { NgIf } from '@angular/common';
-import { Divider } from 'primeng/divider';
-import { Flashcard } from '../../models/flashcard';
+import {NgIf} from '@angular/common';
+import {Divider} from 'primeng/divider';
+import {Flashcard} from '../../models/flashcard';
 
 @Component({
   selector: 'app-flashcard',
   standalone: true,
-  imports: [Card, NgIf, Divider],
+  imports: [NgIf, Divider],
   templateUrl: './flashcard.component.html',
   styleUrl: './flashcard.component.scss',
 })
