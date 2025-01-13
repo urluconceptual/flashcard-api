@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: flashcard-be
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+jwt:
+  secret: iPVPTqbBv3EBcrKkPj9eNwDPSfVkYaDC9C2j6VxiPMxtxwC6GneLeqb6JJu2EyXEicWTjQzyWjbfKFy9jmT9NgMnMM7vC7ck
+  ttl: 8
+xsrf:
+  header:
+    value: ValidToken
+cors:
+  allowedOrigins: http://localhost:4200
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
