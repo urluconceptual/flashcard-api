@@ -1,9 +1,9 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import { FlashcardComponent } from '../flashcard/flashcard.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {FlashcardComponent} from '../flashcard/flashcard.component';
 import {Carousel} from "primeng/carousel";
-import {Flashcard} from "../../models/flashcard";
-import {FlashcardCollection} from "../../models/flashcard-collection";
+import {Collection} from "../../models/collection";
 import {FlashcardService} from "../../services/flashcard.service";
+import {CollectionService} from "../../services/collection.service";
 
 @Component({
   selector: 'app-flashcard-collection',
@@ -13,14 +13,14 @@ import {FlashcardService} from "../../services/flashcard.service";
   styleUrl: './flashcard-collection.component.scss',
 })
 export class FlashcardCollectionComponent implements OnInit {
-  @Input() collectionId!: string;
+  @Input() collectionId!: number;
 
-  public collection!: FlashcardCollection;
+  public collection!: Collection;
 
-  constructor(private flashcardService: FlashcardService) {
+  constructor(private collectionService: CollectionService) {
   }
 
   ngOnInit() {
-    this.collection = this.flashcardService.getCollectionById(this.collectionId)!;
+    this.collection = this.collectionService.getCollectionById(this.collectionId)!;
   }
 }

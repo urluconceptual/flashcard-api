@@ -1,0 +1,32 @@
+<div class="container">
+  <span class="mat-headline-small">
+    Sign Up
+  </span>
+  <form [formGroup]="form">
+    <div class="form-field">
+      <p-floatlabel>
+        <input formControlName="username" id="username" pInputText type="text"/>
+        <label for="username">Username</label>
+      </p-floatlabel>
+      <small *ngIf="isControlInvalid('username', 'required')"
+             class="error-message">This
+        field
+        is required.</small>
+    </div>
+    <div class="form-field">
+      <p-floatlabel>
+        <p-password [toggleMask]="true" fluid="true" formControlName="password" id="password"/>
+        <label for="password">Password</label>
+      </p-floatlabel>
+      <small *ngIf="isControlInvalid('password', 'required')"
+             class="error-message">This
+        field
+        is required.</small>
+    </div>
+    <button (click)="submit()" pButton pRipple severity="success">
+      <span pButtonLabel>Submit</span>
+    </button>
+    <span>Already have an account? <p-button (onClick)="switchToSignIn()" [link]="true" label="Click here"/> to access it.</span>
+  </form>
+</div>
+<p-toast/>

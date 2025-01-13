@@ -1,0 +1,33 @@
+<p-dialog [header]="'Collection'" [modal]="true" [visible]="visible" closable="false" [style]="{ width: '20rem' }">
+  <form [formGroup]="form" class="container">
+    <div class="form-field">
+      <p-floatlabel>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-at"/>
+          <input formControlName="name" id="name" pInputText type="text"/>
+        </p-iconfield>
+        <label for="name">Name</label>
+      </p-floatlabel>
+            <small class="error-message"
+                   *ngIf="isControlInvalid('name', 'required')">This field
+              is required.</small>
+    </div>
+    <div class="form-field">
+      <p-floatlabel>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-book"/>
+          <input formControlName="category" id="category" pInputText type="text"/>
+        </p-iconfield>
+        <label for="category">Category</label>
+                <small class="error-message"
+                       *ngIf="isControlInvalid('category', 'required')">This field
+                  is required.</small>
+      </p-floatlabel>
+    </div>
+    <div class="button-row">
+      <p-button (click)="onClose()" label="Cancel" severity="secondary"/>
+      <p-button (click)="onSave()" label="Save"/>
+    </div>
+  </form>
+</p-dialog>
+<p-toast/>

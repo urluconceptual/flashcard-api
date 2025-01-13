@@ -6,7 +6,9 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {Button} from "primeng/button";
 import {RouterLink} from "@angular/router";
 import {FlashcardService} from "../../services/flashcard.service";
-import {FlashcardCollection} from "../../models/flashcard-collection";
+import {Collection} from "../../models/collection";
+import {CollectionService} from "../../services/collection.service";
+import {Card} from "primeng/card";
 
 @Component({
   selector: 'app-collection-gallery',
@@ -17,15 +19,19 @@ import {FlashcardCollection} from "../../models/flashcard-collection";
     NgForOf,
     MatGridListModule,
     Button,
-    RouterLink
+    RouterLink,
+    Card
   ],
   templateUrl: './collection-gallery.component.html',
   styleUrl: './collection-gallery.component.scss'
 })
 export class CollectionGalleryComponent {
-  public collections: FlashcardCollection[];
+  public collections: Collection[] = [];
 
-  constructor(private flashcardService: FlashcardService) {
-    this.collections = this.flashcardService.getCollections();
+  constructor(private collectionService: CollectionService) {
+    collectionService.initService();
+    this.collectionService.getCollections$().subscribe((collections) => {
+      this.collections = collections;
+    });
   }
 }

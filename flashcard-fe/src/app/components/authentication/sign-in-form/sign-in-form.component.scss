@@ -1,0 +1,18 @@
+:host {
+  width: 100%;
+}
+
+.container, form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  align-items: center;
+
+  p-floatlabel, button {
+    width: 70%;
+
+    input {
+      width: 100%;
+    }
+  }
+}

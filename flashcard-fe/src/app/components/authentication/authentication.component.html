@@ -1,0 +1,7 @@
+<div class="split-container">
+  <div class="flex-container greeting mat-display-medium"><span>Hello and welcome to FlashcardZ!</span></div>
+  <div class="flex-container form">
+    <app-sign-in-form *ngIf="authenticationService.isSignIn"></app-sign-in-form>
+    <app-sign-up-form *ngIf="!authenticationService.isSignIn"></app-sign-up-form>
+  </div>
+</div>

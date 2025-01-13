@@ -1,4 +1,4 @@
-import { DifficultyLevel } from './difficulty-level';
+import {DifficultyLevel} from './difficulty-level';
 
 export interface Flashcard {
   term: string;

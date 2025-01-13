@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 64px);
+}
+
+.split-container {
+  background: linear-gradient(to right, var(--p-green-400) 50%, var(--p-zinc-900) 50%);
+  height: 60vh;
+  width: 70vw;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  height: 100%;
+
+  &.greeting {
+    color: #1c1b22;
+    font-weight: lighter;
+  }
+}
