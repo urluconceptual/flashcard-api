@@ -4,4 +4,5 @@ export interface Flashcard {
   term: string;
   definition: string;
   difficultyLevel: DifficultyLevel;
+  collectionId: number;
 }

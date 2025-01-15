@@ -8,14 +8,18 @@ import {User} from "../models/user";
 
 @Injectable({providedIn: "root"})
 export class AuthenticationService {
-  private _userData?: User;
-  private _isSignIn = false;
-  private _isAuthenticated = false;
-
   constructor(private userRestService: UserRestService,
               private router: Router) {
     this.checkToken();
   }
+
+  private _userData?: User;
+
+  public get userData(): User | undefined {
+    return this._userData;
+  }
+
+  private _isSignIn = false;
 
   public get isSignIn(): boolean {
     return this._isSignIn;
@@ -25,16 +29,14 @@ export class AuthenticationService {
     this._isSignIn = val;
   }
 
+  private _isAuthenticated = false;
+
   public get isAuthenticated(): boolean {
     return this._isAuthenticated;
   }
 
   public set isAuthenticated(val: boolean) {
     this._isAuthenticated = val;
-  }
-
-  public get userData(): User | undefined {
-    return this._userData;
   }
 
   public signIn(userCredentials: UserCredentials, messageService: MessageService): void {
@@ -59,7 +61,7 @@ export class AuthenticationService {
 
   private checkToken(): void {
     const token = localStorage.getItem('authToken');
-    if(!token) return;
+    if (!token) return;
     this.userRestService.checkToken().subscribe((authResponse) => {
       this.setUpAuthenticatedUser(authResponse);
     }, () => {

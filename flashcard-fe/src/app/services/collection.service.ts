@@ -35,6 +35,22 @@ export class CollectionService {
     });
   }
 
+  public updateCollection(collection: Collection, messageService: MessageService): void {
+    this.collectionRestService.updateCollection(collection).subscribe(() => {
+      messageService.add({severity: 'success', summary: 'Success', detail: 'Collection updated successfully!'});
+      this.collections.set(collection.collectionId, collection);
+      this.collectionsSubject.next(this.collections);
+    });
+  }
+
+  public deleteCollection(collection: Collection, messageService: MessageService): void {
+    this.collectionRestService.deleteCollection(collection).subscribe(() => {
+      messageService.add({severity: 'success', summary: 'Success', detail: 'Collection deleted successfully!'});
+      this.collections.delete(collection.collectionId);
+      this.collectionsSubject.next(this.collections);
+    });
+  }
+
   public getCollections$(): Observable<Collection[]> {
     return this.collections$.pipe(map(() => Array.from(this.collections.values())));
   }

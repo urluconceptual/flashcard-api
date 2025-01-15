@@ -1,12 +1,5 @@
-<mat-grid-list cols="3" rowHeight="3:1">
+<mat-grid-list cols="4" rowHeight="2:1">
   <mat-grid-tile *ngFor="let collection of collections">
-    <p-card [header]="collection.name" [routerLink]="['/collection', collection.collectionId]">
-      <p>
-        Category: {{ collection.category }}
-      </p>
-      <p>
-        No. of cards: {{ collection.flashcardCount }}
-      </p>
-    </p-card>
+    <app-collection-card [collection]="collection"></app-collection-card>
   </mat-grid-tile>
 </mat-grid-list>

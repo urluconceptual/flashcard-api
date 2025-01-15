@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FlashcardComponent} from '../flashcard/flashcard.component';
 import {Carousel} from "primeng/carousel";
 import {Collection} from "../../models/collection";
-import {FlashcardService} from "../../services/flashcard.service";
 import {CollectionService} from "../../services/collection.service";
 
 @Component({

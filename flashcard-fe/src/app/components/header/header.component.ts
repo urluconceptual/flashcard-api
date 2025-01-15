@@ -4,7 +4,6 @@ import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Menu} from "primeng/menu";
 import {MenuItem} from "primeng/api";
-import {MatDialog} from "@angular/material/dialog";
 import {CollectionDialog} from "../collection-dialog/collection-dialog";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Dialog} from "primeng/dialog";
@@ -40,7 +39,7 @@ export class HeaderComponent {
     }];
   public collectionDialogVisible: boolean = false;
 
-  constructor(private dialog: MatDialog, private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService) {
   }
 
   public onCollectionDialogClose(): void {

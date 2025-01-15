@@ -1,1 +1,37 @@
-<p>flashcards-dialog works!</p>
+<p-dialog [header]="'Flashcards'" [modal]="true" [style]="{ width: '50rem' }" [visible]="visible" closable="false">
+  <form [formGroup]="form" class="form-container">
+    <ng-container formArrayName="flashcards">
+      <div *ngFor="let flashcardForm of flashcardControls.controls; let i = index" class="control-container">
+        <ng-container [formGroupName]="i">
+          <p-floatlabel variant="in">
+            <p-iconfield>
+              <p-inputicon styleClass="pi pi-question"/>
+              <input formControlName="term" id="term" pInputText type="text"/>
+            </p-iconfield>
+            <label for="term">Term</label>
+          </p-floatlabel>
+          <p-floatlabel variant="in">
+            <p-iconfield>
+              <p-inputicon styleClass="pi pi-comment"/>
+              <input formControlName="definition" id="definition" pInputText type="text"/>
+            </p-iconfield>
+            <label for="definition">Definition</label>
+          </p-floatlabel>
+          <p-floatlabel variant="in">
+            <p-iconfield>
+              <p-input-number formControlName="difficulty" id="difficulty" type="text" [showButtons]="true" [min]="1" [max]="5"/>
+            </p-iconfield>
+            <label for="difficulty">Difficulty</label>
+          </p-floatlabel>
+          <p-button [disabled]="i===0" (click)="onRemoveFlashcard(i)" label="Remove" severity="secondary"/>
+        </ng-container>
+      </div>
+    </ng-container>
+    <div class="button-row">
+      <p-button (click)="addRow()" label="Add row" severity="secondary"/>
+      <p-button (click)="onClose()" label="Cancel" severity="secondary"/>
+      <p-button (click)="onSave()" label="Save"/>
+    </div>
+  </form>
+</p-dialog>
+<p-toast/>

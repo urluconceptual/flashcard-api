@@ -1,9 +1,20 @@
-<p-card [header]="collection.name" [routerLink]="['/collection', collection.collectionId]">
+<p-card [header]="collection.name">
   <p>
     Category: {{ collection.category }}
   </p>
   <p>
     No. of cards: {{ collection.flashcardCount }}
   </p>
-
+  <div class="button-row">
+    <p-button (click)="onDelete(collection)" icon="pi pi-trash" severity="secondary"></p-button>
+    <p-button (click)="onEdit()" *ngIf="collectionOwner()" icon="pi pi-pencil" severity="secondary"></p-button>
+    <p-button (click)="onAddFlashcard()" *ngIf="collectionOwner()" icon="pi pi-plus"
+              severity="secondary"></p-button>
+    <p-button (click)="onView(collection)" *ngIf="collectionOwner()" icon="pi pi-eye" severity="primary"></p-button>
+  </div>
 </p-card>
+
+<app-collection-dialog (closed)="onCollectionDialogClose()" [collection]="collection"
+                       [visible]="collectionDialogVisible">
+</app-collection-dialog>
+<app-flashcards-dialog (closed)="onFlashcardsDialogClosed()" [collectionId]="collection.collectionId" [visible]="flashcardDialogVisible"></app-flashcards-dialog>

@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CollectionRestService} from "../../services/collection-rest.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -50,8 +49,9 @@ import {AuthenticationService} from "../../services/authentication.service";
   templateUrl: './collection-dialog.html',
   styleUrl: './collection-dialog.scss'
 })
-export class CollectionDialog {
+export class CollectionDialog implements OnInit {
   @Input() visible: boolean = false;
+  @Input() collection?: Collection;
   @Output() closed = new EventEmitter<void>();
 
   public form = new FormGroup({
@@ -68,8 +68,17 @@ export class CollectionDialog {
               private authService: AuthenticationService) {
   }
 
+  ngOnInit(): void {
+    if (this.collection) {
+      this.form.patchValue(this.collection);
+    }
+  }
+
   public onClose(): void {
-    this.form.reset();
+    if (this.collection)
+      this.form.patchValue(this.collection);
+    else
+      this.form.reset();
     this.closed.emit();
   }
 
@@ -79,8 +88,17 @@ export class CollectionDialog {
       return;
     }
 
-    const userId = this.authService.userData?.userId;
-    this.collectionService.createCollection({...this.form.value, userId} as Collection, this.messageService);
+    if (this.collection) {
+      this.collectionService.updateCollection({
+        ...this.form.value,
+        collectionId: this.collection.collectionId
+      } as Collection, this.messageService);
+      this.onClose();
+      return;
+    } else {
+      const userId = this.authService.userData?.userId;
+      this.collectionService.createCollection({...this.form.value, userId} as Collection, this.messageService);
+    }
 
     this.onClose();
   }

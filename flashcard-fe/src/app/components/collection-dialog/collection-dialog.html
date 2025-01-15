@@ -1,4 +1,4 @@
-<p-dialog [header]="'Collection'" [modal]="true" [visible]="visible" closable="false" [style]="{ width: '20rem' }">
+<p-dialog [header]="'Collection'" [modal]="true" [style]="{ width: '20rem' }" [visible]="visible" closable="false">
   <form [formGroup]="form" class="container">
     <div class="form-field">
       <p-floatlabel>
@@ -8,9 +8,9 @@
         </p-iconfield>
         <label for="name">Name</label>
       </p-floatlabel>
-            <small class="error-message"
-                   *ngIf="isControlInvalid('name', 'required')">This field
-              is required.</small>
+      <small *ngIf="isControlInvalid('name', 'required')"
+             class="error-message">This field
+        is required.</small>
     </div>
     <div class="form-field">
       <p-floatlabel>
@@ -19,9 +19,9 @@
           <input formControlName="category" id="category" pInputText type="text"/>
         </p-iconfield>
         <label for="category">Category</label>
-                <small class="error-message"
-                       *ngIf="isControlInvalid('category', 'required')">This field
-                  is required.</small>
+        <small *ngIf="isControlInvalid('category', 'required')"
+               class="error-message">This field
+          is required.</small>
       </p-floatlabel>
     </div>
     <div class="button-row">

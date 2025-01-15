@@ -4,4 +4,5 @@ export enum Rest {
   LOGIN_API = '/user/login',
   CHECK_TOKEN_API = '/user/check-token',
   COLLECTION_API = '/collection',
+  FLASHCARD_API = '/flashcard',
 }
