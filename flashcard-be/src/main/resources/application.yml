@@ -12,7 +12,7 @@ spring:
     show-sql: true
 jwt:
   secret: iPVPTqbBv3EBcrKkPj9eNwDPSfVkYaDC9C2j6VxiPMxtxwC6GneLeqb6JJu2EyXEicWTjQzyWjbfKFy9jmT9NgMnMM7vC7ck
-  ttl: 8
+  ttl: 3600
 xsrf:
   header:
     value: ValidToken
@@ -22,4 +22,14 @@ logging:
   level:
     org:
       springframework:
-        security: TRACE
+        web: debug
+        security: INFO
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+    version: openapi_3_1
+  swagger-ui:
+    enabled: true
+    url: /swagger-ui/index.html
+    version: 3.0.0

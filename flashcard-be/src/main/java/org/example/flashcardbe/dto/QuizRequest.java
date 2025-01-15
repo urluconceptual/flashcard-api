@@ -9,8 +9,5 @@ public class QuizRequest {
     @NotNull(message = "User ID is required")
     private Long userId;
 
-    @NotNull(message = "Collection ID is required")
-    private Long collectionId;
-
     private Integer difficulty;
 }

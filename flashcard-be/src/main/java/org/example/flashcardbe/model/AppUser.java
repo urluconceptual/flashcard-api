@@ -42,4 +42,7 @@ public class AppUser {
             inverseJoinColumns = @JoinColumn(name = "achievement_id")
     )
     private Set<Achievement> achievements = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StudySession> studySessions;
 }

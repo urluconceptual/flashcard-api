@@ -39,6 +39,15 @@ public class CollectionService {
         return collectionRepository.findById(collectionId);
     }
 
+    public CollectionResponse updateCollection(Long collectionId, CollectionRequest collectionRequest) {
+        Collection collection = getCollectionById(collectionId).orElseThrow();
+        collection.setName(collectionRequest.getName());
+        collection.setCategory(collectionRequest.getCategory());
+        collection.setUpdatedAt(collection.getUpdatedAt());
+        collection = collectionRepository.save(collection);
+        return CollectionMapper.toResponseDTO(collection);
+    }
+
     public void deleteCollection(Long collectionId) {
         collectionRepository.deleteById(collectionId);
     }

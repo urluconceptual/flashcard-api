@@ -1,13 +1,13 @@
 package org.example.flashcardbe.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
 public class QuizResponse {
     private Long quizId;
@@ -15,4 +15,5 @@ public class QuizResponse {
     private LocalDateTime createdAt;
     private LocalDateTime completedAt;
     private Integer score;
+    private Integer flashcardNumber;
 }

@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,7 +34,8 @@ public class UserService {
         String tokenValue = token.substring(7);
         String userId = jwtProvider.getUserIdFromToken(tokenValue);
         AppUser user =
-                userRepository.findById(Long.parseLong(userId)).orElseThrow(() -> new ObjectNotFoundException((Object) userId, "AppUser"));
+                userRepository.findById(Long.parseLong(userId))
+                        .orElseThrow(() -> new ObjectNotFoundException((Object) userId, "AppUser"));
         AppUserResponse userResponse = AppUserMapper.toDTO(user);
         return AuthResponse.builder().user(userResponse).token(tokenValue).build();
     }
@@ -77,10 +77,7 @@ public class UserService {
     }
 
     public void deleteUser(@NotNull Long userId) {
+        this.getUserById(userId); // Checks if user exists (throws exception if not)
         userRepository.deleteById(userId);
-    }
-
-    public List<AppUser> getAllUsers() {
-        return userRepository.findAll();
     }
 }

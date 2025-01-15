@@ -1,10 +1,12 @@
 package org.example.flashcardbe.service;
 
 import lombok.AllArgsConstructor;
+import org.example.flashcardbe.model.AppUser;
 import org.example.flashcardbe.model.StudySession;
 import org.example.flashcardbe.repository.StudySessionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,15 +15,19 @@ import java.util.Optional;
 public class StudySessionService {
 
     private StudySessionRepository studySessionRepository;
+    private UserService userService;
 
-    public StudySession startStudySession(StudySession studySession) {
+    public StudySession startStudySession(Long userId) {
+        StudySession studySession = new StudySession();
+        AppUser user = userService.getUserById(userId);
+        studySession.setUser(user);
         return studySessionRepository.save(studySession);
     }
 
     public void endStudySession(Long sessionId) {
         Optional<StudySession> session = studySessionRepository.findById(sessionId);
         session.ifPresent(s -> {
-            s.setEndTime(java.time.LocalDateTime.now());
+            s.setEndTime(LocalDateTime.now());
             studySessionRepository.save(s);
         });
     }

@@ -8,7 +8,5 @@ import java.util.List;
 public interface StudySessionRepository extends JpaRepository<StudySession, Long> {
     List<StudySession> findByUser_UserId(Long userId);
 
-    List<StudySession> findByCollection_CollectionId(Long collectionId);
-
     List<StudySession> findByUser_UserIdAndEndTimeIsNull(Long userId);
 }

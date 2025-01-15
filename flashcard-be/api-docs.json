@@ -1,0 +1,892 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "REST API",
+    "description": "REST API description...",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "security": [
+    {
+      "bearerToken": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Quiz",
+      "description": "Quiz management APIs"
+    },
+    {
+      "name": "Flashcard",
+      "description": "Flashcard management APIs"
+    },
+    {
+      "name": "Collection",
+      "description": "Collection management APIs"
+    },
+    {
+      "name": "User",
+      "description": "User management APIs"
+    }
+  ],
+  "paths": {
+    "/api/v1/flashcard/{flashcardId}": {
+      "put": {
+        "tags": [
+          "Flashcard"
+        ],
+        "summary": "Update a flashcard by ID",
+        "operationId": "updateFlashcard",
+        "parameters": [
+          {
+            "name": "flashcardId",
+            "in": "path",
+            "description": "ID of the flashcard to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated flashcard request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlashcardRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlashcardResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Flashcard"
+        ],
+        "summary": "Delete a flashcard by ID",
+        "operationId": "deleteFlashcard",
+        "parameters": [
+          {
+            "name": "flashcardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted flashcard"
+          }
+        }
+      }
+    },
+    "/api/v1/collection/{collectionId}": {
+      "put": {
+        "tags": [
+          "Collection"
+        ],
+        "summary": "Update an existing collection",
+        "operationId": "updateCollection",
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "description": "ID of the collection to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated collection request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Collection not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Collection"
+        ],
+        "summary": "Delete a collection by ID",
+        "operationId": "deleteCollection",
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted collection"
+          },
+          "404": {
+            "description": "Collection not found"
+          }
+        }
+      }
+    },
+    "/api/v1/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user details by ID",
+        "operationId": "getUserById",
+        "requestBody": {
+          "description": "User ID for fetching user details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "404": {
+            "description": "User not found"
+          },
+          "200": {
+            "description": "Successfully fetched user details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppUserResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a new user",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "New user registration request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid user request"
+          },
+          "201": {
+            "description": "User successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Authenticate and log in the user",
+        "operationId": "login",
+        "requestBody": {
+          "description": "User login request with username and password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "401": {
+            "description": "Invalid login credentials"
+          },
+          "200": {
+            "description": "User successfully logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quiz": {
+      "post": {
+        "tags": [
+          "Quiz"
+        ],
+        "summary": "Submit answers for an existing quiz session",
+        "operationId": "submitQuiz",
+        "requestBody": {
+          "description": "Quiz answer submission request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuizAnswerRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid quiz answers"
+          },
+          "200": {
+            "description": "Successfully submitted quiz answers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quiz/new": {
+      "post": {
+        "tags": [
+          "Quiz"
+        ],
+        "summary": "Start a new quiz session",
+        "operationId": "startQuiz",
+        "requestBody": {
+          "description": "Quiz request with initial parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuizRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid quiz request"
+          },
+          "200": {
+            "description": "Successfully started quiz session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizAnswerResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/flashcard": {
+      "post": {
+        "tags": [
+          "Flashcard"
+        ],
+        "summary": "Create a single flashcard",
+        "operationId": "createFlashcard",
+        "requestBody": {
+          "description": "Flashcard request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlashcardRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlashcardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/flashcard/bulk": {
+      "post": {
+        "tags": [
+          "Flashcard"
+        ],
+        "summary": "Create multiple flashcards",
+        "operationId": "createFlashcards",
+        "requestBody": {
+          "description": "List of flashcard requests",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/FlashcardRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "404": {
+            "description": "Collection not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FlashcardResponse"
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successfully created flashcards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlashcardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collection": {
+      "get": {
+        "tags": [
+          "Collection"
+        ],
+        "summary": "Retrieve all collections",
+        "operationId": "getAllCollections",
+        "responses": {
+          "200": {
+            "description": "List of all collections",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Collection"
+        ],
+        "summary": "Save a new collection",
+        "operationId": "saveCollection",
+        "requestBody": {
+          "description": "Collection request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/check-token": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Check the validity of a user token",
+        "operationId": "checkToken",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid token"
+          },
+          "200": {
+            "description": "Token is valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/flashcard/{collectionId}": {
+      "get": {
+        "tags": [
+          "Flashcard"
+        ],
+        "summary": "Get flashcards by collection ID",
+        "operationId": "getFlashcards",
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "description": "ID of the collection",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FlashcardResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collection/{userId}": {
+      "get": {
+        "tags": [
+          "Collection"
+        ],
+        "summary": "Retrieve collections by user ID",
+        "operationId": "getCollectionsByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of collections for the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/{userId}": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete a user by ID",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully deleted"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FlashcardRequest": {
+        "type": "object",
+        "properties": {
+          "term": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "definition": {
+            "type": "string"
+          },
+          "difficulty": {
+            "type": "integer",
+            "format": "int32",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "collectionId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "collectionId",
+          "definition",
+          "difficulty",
+          "term"
+        ]
+      },
+      "FlashcardResponse": {
+        "type": "object",
+        "properties": {
+          "flashcardId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "term": {
+            "type": "string"
+          },
+          "definition": {
+            "type": "string"
+          },
+          "difficulty": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "collectionId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CollectionRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0
+          },
+          "category": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "category",
+          "name",
+          "userId"
+        ]
+      },
+      "CollectionResponse": {
+        "type": "object",
+        "properties": {
+          "collectionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "flashcardCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "AppUserRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 3
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 6
+          }
+        },
+        "required": [
+          "password",
+          "username"
+        ]
+      },
+      "AppUserResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/AppUserResponse"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "QuizAnswerRequest": {
+        "type": "object",
+        "properties": {
+          "quizId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "quizFlashcardRequestList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuizFlashcardRequest"
+            }
+          }
+        }
+      },
+      "QuizFlashcardRequest": {
+        "type": "object",
+        "properties": {
+          "flashcardId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answer": {
+            "type": "string"
+          }
+        }
+      },
+      "QuizResponse": {
+        "type": "object",
+        "properties": {
+          "quizId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "flashcardNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "QuizRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "difficulty": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "QuizAnswerResponse": {
+        "type": "object",
+        "properties": {
+          "quizId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuizFlashcardResponse"
+            }
+          }
+        }
+      },
+      "QuizFlashcardResponse": {
+        "type": "object",
+        "properties": {
+          "flashcardId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "collectionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "term": {
+            "type": "string"
+          },
+          "answerVariantList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

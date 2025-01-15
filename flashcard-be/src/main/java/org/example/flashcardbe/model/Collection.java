@@ -38,7 +38,4 @@ public class Collection {
 
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Flashcard> flashcards;
-
-    @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<StudySession> studySessions;
 }

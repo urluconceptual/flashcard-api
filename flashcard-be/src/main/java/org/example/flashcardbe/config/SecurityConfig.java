@@ -1,7 +1,6 @@
 package org.example.flashcardbe.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.flashcardbe.model.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
+
     public static final String USER = "USER";
 
     private final AuthorizationFilter jwtAuthorizationFilter;
@@ -50,12 +50,26 @@ public class SecurityConfig {
                                 cps -> cps.policyDirectives("script-src 'self'")
                         ))
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/swagger-ui/*").permitAll()
+                        .requestMatchers("/api-docs").permitAll()
+                        .requestMatchers("/api-docs/*").permitAll()
                         .requestMatchers("/api/v1/user/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
+                        .requestMatchers("/swagger-ui").permitAll()
+                        .requestMatchers("/v2/api-docs").permitAll()
                         .requestMatchers("/api/v1/user/check-token").hasRole(USER)
                         .requestMatchers(HttpMethod.POST, "/api/v1/collection").hasRole(USER)
                         .requestMatchers(HttpMethod.GET, "/api/v1/collection").hasRole(USER)
                         .requestMatchers(HttpMethod.GET, "/api/v1/collection/*").hasRole(USER)
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/collection/*").hasRole(USER)
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/collection/*").hasRole(USER)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/flashcard").hasRole(USER)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/flashcard/bulk").hasRole(USER)
+                        .requestMatchers(HttpMethod.GET, "/api/v1/flashcard/*").hasRole(USER)
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/flashcard/*").hasRole(USER)
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/flashcard/*").hasRole(USER)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/quiz/new").hasRole(USER)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/quiz").hasRole(USER)
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

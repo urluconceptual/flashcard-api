@@ -23,10 +23,6 @@ public class StudySession {
     @JoinColumn(name = "user_id", nullable = false)
     private AppUser user;
 
-    @ManyToOne
-    @JoinColumn(name = "collection_id")
-    private Collection collection;
-
     @Column(nullable = false, updatable = false)
     private LocalDateTime startTime = LocalDateTime.now();
 

@@ -1,9 +1,11 @@
 package org.example.flashcardbe.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class FlashcardRequest {
     @NotBlank(message = "Term is required")
     @Size(max = 255, message = "Term cannot exceed 255 characters")
@@ -17,5 +19,6 @@ public class FlashcardRequest {
     @Max(value = 5, message = "Difficulty cannot exceed 5")
     private Integer difficulty;
 
+    @NotNull(message = "Collection ID is required")
     private Long collectionId;
 }

@@ -36,7 +36,7 @@ public class Quiz {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<QuizFlashcard> quizFlashcards;
 
 }
